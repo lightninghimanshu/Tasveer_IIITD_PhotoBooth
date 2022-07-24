@@ -4,7 +4,8 @@ import * as ImagePicker from "expo-image-picker";
 import * as MLibrary from "expo-media-library";
 export default function Camerascreen({ navigation }) {
   const [image, setImage] = useState(null);
-
+  const [result, setResult] = useState(null);
+  
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchCameraAsync({
@@ -18,6 +19,7 @@ export default function Camerascreen({ navigation }) {
     // await MLibrary.saveToLibraryAsync(result.uri);
     if (!result.cancelled) {
       setImage(result.uri);
+      setResult(result);
     }
   };
 
@@ -29,7 +31,7 @@ export default function Camerascreen({ navigation }) {
       )}
       <Button
         title="Printing"
-        onPress={() => navigation.navigate("Printing", { img: image })}
+        onPress={() => navigation.navigate("Printing", { img: result })}
       />
     </View>
   );
